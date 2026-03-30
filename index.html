@@ -51,6 +51,12 @@
       color: inherit;
     }
 
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.92em;
+      color: #dbeafe;
+    }
+
     .ambient-bg {
       position: fixed;
       inset: 0;
@@ -301,6 +307,41 @@
       text-decoration: underline;
     }
 
+    .contrib-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 0 0 12px;
+    }
+
+    .contrib-tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--soft-muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .card-link {
+      display: inline-flex;
+      margin-top: 14px;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .card-link:hover {
+      text-decoration: underline;
+    }
+
     .section {
       margin-top: 42px;
       padding-top: 30px;
@@ -477,6 +518,7 @@
           <div class="hero-actions">
             <a class="btn btn-primary" href="https://github.com/Judel777" target="_blank" rel="me noopener noreferrer">GitHub</a>
             <a class="btn btn-primary" href="#audits">Security Audits</a>
+            <a class="btn btn-primary" href="#contributions">Open Source</a>
             <a class="btn btn-primary" href="mailto:contact@pal0x.dev">Email</a>
           </div>
 
@@ -578,30 +620,128 @@
           </div>
         </section>
 
-        <section class="section">
+        <section class="section" id="contributions">
           <div class="section-heading">
-            <div class="section-label">Public Work</div>
-            <h2>Projects and workflow notes</h2>
+            <div class="section-label">Open Source Contributions</div>
+            <h2>Selected merged public work</h2>
           </div>
+
+          <p class="about-copy">
+            I contribute practical improvements to open-source projects, with recent merged work
+            spanning accessibility, frontend performance, configuration, and code quality updates.
+          </p>
 
           <div class="work-grid">
             <article class="work-card">
-              <h3>GitHub</h3>
+              <div class="contrib-meta">
+                <span class="contrib-tag">Merged PR</span>
+                <span class="contrib-tag">Code Quality</span>
+              </div>
+              <h3>Rapina</h3>
               <p>
-                <a class="github-link" href="https://github.com/Judel777" target="_blank" rel="me noopener noreferrer">
-                  Projects, scripts, experiments, and workflow improvements.
-                </a>
+                Cleaned up singularize-related dead code warnings and aligned the change with the
+                project’s feature-gated build requirements after review feedback.
               </p>
+              <a
+                class="card-link"
+                href="https://github.com/rapina-rs/rapina/pull/422#event-24031993929"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View PR
+              </a>
             </article>
 
             <article class="work-card">
-              <h3>Research Style</h3>
-              <p>Practical testing focused on realistic impact, trust boundaries, and reproducible findings.</p>
+              <div class="contrib-meta">
+                <span class="contrib-tag">Merged PR</span>
+                <span class="contrib-tag">Configuration</span>
+              </div>
+              <h3>AegisFlow</h3>
+              <p>
+                Added configurable <code>max_body_size</code> support to server configuration and
+                documented the setting for cleaner request size control.
+              </p>
+              <a
+                class="card-link"
+                href="https://github.com/saivedant169/AegisFlow/pull/38"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View PR
+              </a>
             </article>
 
             <article class="work-card">
-              <h3>Workflow</h3>
-              <p>Simple automation and structured testing to improve signal, coverage, and consistency.</p>
+              <div class="contrib-meta">
+                <span class="contrib-tag">Merged PR</span>
+                <span class="contrib-tag">Performance</span>
+              </div>
+              <h3>SurfSense</h3>
+              <p>
+                Improved markdown rendering performance by lazy-loading the syntax highlighter only
+                when fenced code blocks are actually rendered.
+              </p>
+              <a
+                class="card-link"
+                href="https://github.com/MODSetter/SurfSense/pull/1023"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View PR
+              </a>
+            </article>
+
+            <article class="work-card">
+              <div class="contrib-meta">
+                <span class="contrib-tag">Merged PR</span>
+                <span class="contrib-tag">Accessibility</span>
+              </div>
+              <h3>SurfSense</h3>
+              <p>
+                Improved accessibility by adding proper <code>aria-label</code> and
+                <code>aria-pressed</code> support to the web search toggle for assistive technology.
+              </p>
+              <a
+                class="card-link"
+                href="https://github.com/MODSetter/SurfSense/pull/1026"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View PR
+              </a>
+            </article>
+
+            <article class="work-card">
+              <div class="contrib-meta">
+                <span class="contrib-tag">GitHub</span>
+                <span class="contrib-tag">Public Work</span>
+              </div>
+              <h3>Profile</h3>
+              <p>
+                More public work, experiments, small utilities, and contributions are available on
+                my GitHub profile.
+              </p>
+              <a
+                class="card-link"
+                href="https://github.com/Judel777"
+                target="_blank"
+                rel="me noopener noreferrer"
+              >
+                Visit GitHub
+              </a>
+            </article>
+
+            <article class="work-card">
+              <div class="contrib-meta">
+                <span class="contrib-tag">Approach</span>
+                <span class="contrib-tag">Engineering</span>
+              </div>
+              <h3>Contribution Style</h3>
+              <p>
+                I prefer small, reviewable changes that improve usability, maintainability,
+                performance, and implementation quality in real codebases.
+              </p>
             </article>
           </div>
         </section>
