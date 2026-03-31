@@ -4,16 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Judel Palaca | pal0x | Web Security Researcher</title>
+  <meta name="description" content="Judel Palaca (pal0x) is a web security researcher focused on private bug bounty, practical web application testing, and scoped security reviews." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#070b14" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Judel Palaca | pal0x | Web Security Researcher" />
+  <meta property="og:description" content="Private bug bounty researcher focused on web security, practical testing, and scoped application reviews." />
+  <meta property="og:url" content="https://pal0x.dev/" />
+  <meta property="og:site_name" content="pal0x" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Judel Palaca | pal0x | Web Security Researcher" />
+  <meta name="twitter:description" content="Private bug bounty researcher focused on web security, practical testing, and scoped application reviews." />
+  <link rel="canonical" href="https://pal0x.dev/" />
   <style>
     :root {
       --bg: #070b14;
       --bg-2: #0b1220;
-      --panel: rgba(12, 18, 32, 0.76);
+      --panel: rgba(12, 18, 32, 0.78);
+      --panel-strong: rgba(12, 18, 32, 0.9);
       --text: #f8fafc;
       --muted: #a8b3c7;
       --soft-muted: #7f8ba3;
       --line: rgba(148, 163, 184, 0.16);
-      --line-strong: rgba(148, 163, 184, 0.28);
+      --line-strong: rgba(148, 163, 184, 0.30);
       --button-text: #0f172a;
       --button-bg-1: #f8fafc;
       --button-bg-2: #dbe4ef;
@@ -22,7 +35,8 @@
       --radius-xl: 34px;
       --radius-lg: 24px;
       --radius-md: 18px;
-      --max-width: 980px;
+      --max-width: 1040px;
+      --nav-height: 64px;
     }
 
     * {
@@ -47,6 +61,10 @@
       overflow-x: hidden;
     }
 
+    ::selection {
+      background: rgba(191, 219, 254, 0.25);
+    }
+
     a {
       color: inherit;
     }
@@ -55,6 +73,23 @@
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       font-size: 0.92em;
       color: #dbeafe;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 12px;
+      top: -48px;
+      z-index: 20;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: #fff;
+      color: #0f172a;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .skip-link:focus {
+      top: 12px;
     }
 
     .ambient-bg {
@@ -121,15 +156,95 @@
       position: relative;
       z-index: 1;
       min-height: 100vh;
+      padding: 24px 16px 40px;
+    }
+
+    .shell {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: relative;
+      z-index: 10;
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      min-height: var(--nav-height);
+      margin: 0 auto 30px;
+      padding: 14px 18px;
+      background:
+        linear-gradient(180deg, rgba(17, 24, 39, 0.86), rgba(12, 18, 32, 0.80));
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      border-radius: 20px;
+      box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .topbar::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background: linear-gradient(90deg, rgba(255,255,255,0.06), transparent 25%, transparent 75%, rgba(255,255,255,0.04));
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      padding: 1px;
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      display: inline-flex;
+      align-items: center;
       justify-content: center;
-      padding: 40px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.05));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+      color: var(--text);
+      font-size: 0.92rem;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 8px 10px;
+      border-radius: 10px;
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+
+    .nav a:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.05);
     }
 
     .card {
       width: 100%;
-      max-width: var(--max-width);
       position: relative;
       overflow: hidden;
       background: var(--panel);
@@ -157,7 +272,7 @@
 
     .hero {
       text-align: center;
-      max-width: 740px;
+      max-width: 780px;
       margin: 0 auto;
     }
 
@@ -177,7 +292,7 @@
 
     h1 {
       margin: 0;
-      font-size: clamp(2.7rem, 6vw, 4.7rem);
+      font-size: clamp(2.9rem, 6vw, 5rem);
       line-height: 0.98;
       letter-spacing: -0.055em;
       font-weight: 800;
@@ -185,18 +300,49 @@
 
     .lead {
       margin: 18px auto 0;
-      max-width: 720px;
-      font-size: clamp(1.06rem, 2vw, 1.24rem);
-      font-weight: 600;
+      max-width: 760px;
+      font-size: clamp(1.08rem, 2vw, 1.26rem);
+      font-weight: 700;
       letter-spacing: -0.02em;
       color: var(--text);
     }
 
     .subtitle {
-      max-width: 660px;
+      max-width: 690px;
       margin: 14px auto 0;
       color: var(--muted);
       font-size: 1rem;
+    }
+
+    .proof-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .proof-card {
+      padding: 16px 14px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: var(--shadow-soft);
+      text-align: left;
+    }
+
+    .proof-value {
+      display: block;
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    .proof-label {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.92rem;
     }
 
     .hero-actions {
@@ -211,16 +357,17 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 46px;
+      min-height: 48px;
       padding: 0 18px;
       border-radius: 999px;
       text-decoration: none;
-      font-weight: 700;
+      font-weight: 800;
       transition:
         transform 0.18s ease,
         box-shadow 0.18s ease,
         background 0.18s ease,
         border-color 0.18s ease;
+      border: 1px solid transparent;
     }
 
     .btn:hover {
@@ -230,7 +377,7 @@
     .btn-primary {
       color: var(--button-text);
       background: linear-gradient(180deg, var(--button-bg-1), var(--button-bg-2));
-      border: 1px solid rgba(255, 255, 255, 0.26);
+      border-color: rgba(255, 255, 255, 0.26);
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
     }
 
@@ -238,27 +385,42 @@
       box-shadow: 0 16px 34px rgba(0, 0, 0, 0.28);
     }
 
+    .btn-secondary {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
+      border-color: var(--line);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--line-strong);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
     .focus-grid,
     .work-grid,
-    .audit-grid {
+    .audit-grid,
+    .fit-grid {
       display: grid;
       gap: 16px;
     }
 
     .focus-grid,
-    .work-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      margin-top: 36px;
-    }
-
+    .work-grid,
     .audit-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 28px;
+    }
+
+    .fit-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       margin-top: 22px;
     }
 
     .focus-card,
     .work-card,
     .audit-card,
+    .fit-card,
     .contact-box {
       background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
       border: 1px solid var(--line);
@@ -268,14 +430,17 @@
 
     .focus-card,
     .work-card,
-    .audit-card {
+    .audit-card,
+    .fit-card {
       padding: 22px 20px;
       text-align: left;
       transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
     }
 
+    .focus-card:hover,
     .work-card:hover,
-    .audit-card:hover {
+    .audit-card:hover,
+    .fit-card:hover {
       transform: translateY(-2px);
       border-color: var(--line-strong);
       background: rgba(255,255,255,0.06);
@@ -283,7 +448,8 @@
 
     .focus-card h3,
     .work-card h3,
-    .audit-card h3 {
+    .audit-card h3,
+    .fit-card h3 {
       margin: 0 0 8px;
       font-size: 1rem;
       letter-spacing: -0.02em;
@@ -291,20 +457,11 @@
 
     .focus-card p,
     .work-card p,
-    .audit-card p {
+    .audit-card p,
+    .fit-card p {
       margin: 0;
       color: var(--muted);
       font-size: 0.96rem;
-    }
-
-    .github-link {
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .github-link:hover {
-      text-decoration: underline;
     }
 
     .contrib-meta {
@@ -346,6 +503,7 @@
       margin-top: 42px;
       padding-top: 30px;
       border-top: 1px solid rgba(148, 163, 184, 0.12);
+      scroll-margin-top: 92px;
     }
 
     .section-heading {
@@ -391,7 +549,7 @@
     }
 
     .contact-box {
-      max-width: 720px;
+      max-width: 760px;
       margin: 0 auto;
       padding: 24px;
       text-align: center;
@@ -400,6 +558,14 @@
     .contact-box p {
       margin: 0;
       color: var(--muted);
+    }
+
+    .contact-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
     }
 
     .email {
@@ -424,11 +590,20 @@
       font-size: 0.92rem;
     }
 
-    @media (max-width: 900px) {
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid rgba(191, 219, 254, 0.95);
+      outline-offset: 3px;
+      border-radius: 12px;
+    }
+
+    @media (max-width: 980px) {
+      .proof-row,
       .focus-grid,
       .work-grid,
-      .audit-grid {
-        grid-template-columns: 1fr;
+      .audit-grid,
+      .fit-grid {
+        grid-template-columns: 1fr 1fr;
       }
     }
 
@@ -438,9 +613,23 @@
       }
     }
 
+    @media (max-width: 680px) {
+      .nav {
+        display: none;
+      }
+
+      .proof-row,
+      .focus-grid,
+      .work-grid,
+      .audit-grid,
+      .fit-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 560px) {
       .wrap {
-        padding: 18px 10px;
+        padding: 18px 10px 28px;
       }
 
       .card {
@@ -461,7 +650,8 @@
         font-size: 0.95rem;
       }
 
-      .hero-actions {
+      .hero-actions,
+      .contact-actions {
         gap: 10px;
       }
 
@@ -483,8 +673,10 @@
 
       .orb,
       .btn,
+      .focus-card,
       .work-card,
-      .audit-card {
+      .audit-card,
+      .fit-card {
         animation: none !important;
         transition: none !important;
       }
@@ -492,6 +684,8 @@
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
   <div class="ambient-bg" aria-hidden="true">
     <span class="orb orb-1"></span>
     <span class="orb orb-2"></span>
@@ -499,272 +693,333 @@
   </div>
 
   <div class="wrap">
-    <main class="card">
-      <div class="content">
-        <section class="hero">
-          <div class="tag">Private bug bounty researcher · Bohol, Philippines</div>
+    <div class="shell">
+      <header class="topbar" aria-label="Primary">
+        <a class="brand" href="#top">
+          <span class="brand-mark">p</span>
+          <span>pal0x</span>
+        </a>
 
-          <h1>Judel Palaca</h1>
+        <nav class="nav">
+          <a href="#about">About</a>
+          <a href="#focus">Focus</a>
+          <a href="#audits">Audits</a>
+          <a href="#contributions">Open Source</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
 
-          <p class="lead">
-            Private bug bounty researcher focused on web security, practical testing, and automation.
-          </p>
+      <main class="card" id="top">
+        <div class="content" id="main-content">
+          <section class="hero" aria-labelledby="hero-title">
+            <div class="tag">Private bug bounty researcher · Bohol, Philippines</div>
 
-          <p class="subtitle">
-            I work primarily on private bug bounty engagements, study web application behavior,
-            and build simple workflows that improve the quality and efficiency of my research.
-          </p>
+            <h1 id="hero-title">Judel Palaca</h1>
 
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="https://github.com/Judel777" target="_blank" rel="me noopener noreferrer">GitHub</a>
-            <a class="btn btn-primary" href="#audits">Security Audits</a>
-            <a class="btn btn-primary" href="#contributions">Open Source</a>
-            <a class="btn btn-primary" href="mailto:contact@pal0x.dev">Email</a>
-          </div>
-
-          <div class="focus-grid">
-            <article class="focus-card">
-              <h3>Web Security</h3>
-              <p>Testing web applications and understanding real attack surfaces.</p>
-            </article>
-
-            <article class="focus-card">
-              <h3>Private Bounty</h3>
-              <p>Focused on private programs, practical attack paths, and high-signal testing.</p>
-            </article>
-
-            <article class="focus-card">
-              <h3>Automation</h3>
-              <p>Building lightweight workflows that make security research more efficient.</p>
-            </article>
-          </div>
-        </section>
-
-        <section class="section">
-          <div class="section-heading">
-            <div class="section-label">About</div>
-            <h2>Professional focus</h2>
-          </div>
-
-          <p class="about-copy">
-            I am a full-time private bug bounty researcher with a strong interest in web
-            application security, practical analysis, and continuous learning through
-            hands-on work. I enjoy understanding how systems behave, identifying meaningful
-            security issues, and refining my workflows over time.
-          </p>
-        </section>
-
-        <section class="section">
-          <div class="section-heading">
-            <div class="section-label">Focus Areas</div>
-            <h2>What I look at closely</h2>
-          </div>
-
-          <div class="work-grid">
-            <article class="work-card">
-              <h3>Authentication</h3>
-              <p>Login, reset flows, session handling, identity checks, and account recovery paths.</p>
-            </article>
-
-            <article class="work-card">
-              <h3>Access Control</h3>
-              <p>Permission boundaries, role checks, tenant separation, and IDOR-style issues.</p>
-            </article>
-
-            <article class="work-card">
-              <h3>Business Logic</h3>
-              <p>Application workflows, trust assumptions, and practical high-impact logic flaws.</p>
-            </article>
-          </div>
-        </section>
-
-        <section class="section" id="audits">
-          <div class="section-heading">
-            <div class="section-label">Security Audits</div>
-            <h2>Scoped web application reviews</h2>
-          </div>
-
-          <p class="audit-intro">
-            I am available for limited-scope web application security reviews with a focus on
-            practical testing, authentication and access control, and business logic issues.
-          </p>
-
-          <p class="audit-note">
-            Engagements are scoped carefully and handled with a practical, manual-testing approach.
-          </p>
-
-          <div class="audit-grid">
-            <article class="audit-card">
-              <h3>What I can review</h3>
-              <p>
-                Authentication flows, authorization and access control, account management,
-                invitation flows, file access, application logic, and other web application attack surfaces.
-              </p>
-            </article>
-
-            <article class="audit-card">
-              <h3>How I work</h3>
-              <p>
-                Small, clearly scoped engagements with manual testing, practical findings,
-                reproducible reports, and straightforward remediation notes.
-              </p>
-            </article>
-
-            <article class="audit-card">
-              <h3>Typical scope</h3>
-              <p>
-                Web applications, user flows, account roles, permission boundaries,
-                and business logic reviews.
-              </p>
-            </article>
-          </div>
-        </section>
-
-        <section class="section" id="contributions">
-          <div class="section-heading">
-            <div class="section-label">Open Source Contributions</div>
-            <h2>Selected merged public work</h2>
-          </div>
-
-          <p class="about-copy">
-            I contribute practical improvements to open-source projects, with recent merged work
-            spanning accessibility, frontend performance, configuration, and code quality updates.
-          </p>
-
-          <div class="work-grid">
-            <article class="work-card">
-              <div class="contrib-meta">
-                <span class="contrib-tag">Merged PR</span>
-                <span class="contrib-tag">Code Quality</span>
-              </div>
-              <h3>Rapina</h3>
-              <p>
-                Cleaned up singularize-related dead code warnings and aligned the change with the
-                project’s feature-gated build requirements after review feedback.
-              </p>
-              <a
-                class="card-link"
-                href="https://github.com/rapina-rs/rapina/pull/422#event-24031993929"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View PR
-              </a>
-            </article>
-
-            <article class="work-card">
-              <div class="contrib-meta">
-                <span class="contrib-tag">Merged PR</span>
-                <span class="contrib-tag">Configuration</span>
-              </div>
-              <h3>AegisFlow</h3>
-              <p>
-                Added configurable <code>max_body_size</code> support to server configuration and
-                documented the setting for cleaner request size control.
-              </p>
-              <a
-                class="card-link"
-                href="https://github.com/saivedant169/AegisFlow/pull/38"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View PR
-              </a>
-            </article>
-
-            <article class="work-card">
-              <div class="contrib-meta">
-                <span class="contrib-tag">Merged PR</span>
-                <span class="contrib-tag">Performance</span>
-              </div>
-              <h3>SurfSense</h3>
-              <p>
-                Improved markdown rendering performance by lazy-loading the syntax highlighter only
-                when fenced code blocks are actually rendered.
-              </p>
-              <a
-                class="card-link"
-                href="https://github.com/MODSetter/SurfSense/pull/1023"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View PR
-              </a>
-            </article>
-
-            <article class="work-card">
-              <div class="contrib-meta">
-                <span class="contrib-tag">Merged PR</span>
-                <span class="contrib-tag">Accessibility</span>
-              </div>
-              <h3>SurfSense</h3>
-              <p>
-                Improved accessibility by adding proper <code>aria-label</code> and
-                <code>aria-pressed</code> support to the web search toggle for assistive technology.
-              </p>
-              <a
-                class="card-link"
-                href="https://github.com/MODSetter/SurfSense/pull/1026"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View PR
-              </a>
-            </article>
-
-            <article class="work-card">
-              <div class="contrib-meta">
-                <span class="contrib-tag">GitHub</span>
-                <span class="contrib-tag">Public Work</span>
-              </div>
-              <h3>Profile</h3>
-              <p>
-                More public work, experiments, small utilities, and contributions are available on
-                my GitHub profile.
-              </p>
-              <a
-                class="card-link"
-                href="https://github.com/Judel777"
-                target="_blank"
-                rel="me noopener noreferrer"
-              >
-                Visit GitHub
-              </a>
-            </article>
-
-            <article class="work-card">
-              <div class="contrib-meta">
-                <span class="contrib-tag">Approach</span>
-                <span class="contrib-tag">Engineering</span>
-              </div>
-              <h3>Contribution Style</h3>
-              <p>
-                I prefer small, reviewable changes that improve usability, maintainability,
-                performance, and implementation quality in real codebases.
-              </p>
-            </article>
-          </div>
-        </section>
-
-        <section class="section">
-          <div class="section-heading">
-            <div class="section-label">Contact</div>
-            <h2>Get in touch</h2>
-          </div>
-
-          <div class="contact-box">
-            <p>
-              Available for private security work, research discussions, and security-related inquiries.
+            <p class="lead">
+              Web security researcher focused on practical application testing, trust boundaries,
+              and meaningful vulnerabilities in real systems.
             </p>
-            <p class="email">
-              <a href="mailto:contact@pal0x.dev">contact@pal0x.dev</a>
-            </p>
-          </div>
-        </section>
 
-        <p class="footer">pal0x · Web security research and scoped application reviews · © 2026</p>
-      </div>
-    </main>
+            <p class="subtitle">
+              I work primarily on private bug bounty engagements and scoped web application reviews,
+              with a strong focus on authentication, access control, business logic, and clear,
+              reproducible reporting.
+            </p>
+
+            <div class="proof-row" aria-label="Highlights">
+              <div class="proof-card">
+                <span class="proof-value">Web security</span>
+                <span class="proof-label">Manual testing and practical attack paths</span>
+              </div>
+              <div class="proof-card">
+                <span class="proof-value">Private bounty</span>
+                <span class="proof-label">Focused research on real application behavior</span>
+              </div>
+              <div class="proof-card">
+                <span class="proof-value">Merged PRs</span>
+                <span class="proof-label">Public open-source work across multiple projects</span>
+              </div>
+              <div class="proof-card">
+                <span class="proof-value">Scoped reviews</span>
+                <span class="proof-label">Small engagements with clear reporting</span>
+              </div>
+            </div>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="mailto:contact@pal0x.dev?subject=Security%20Review%20Inquiry">Request a Security Review</a>
+              <a class="btn btn-secondary" href="#contributions">View Contributions</a>
+              <a class="btn btn-secondary" href="https://github.com/Judel777" target="_blank" rel="me noopener noreferrer">GitHub</a>
+            </div>
+          </section>
+
+          <section class="section" id="about">
+            <div class="section-heading">
+              <div class="section-label">About</div>
+              <h2>Professional focus</h2>
+            </div>
+
+            <p class="about-copy">
+              I am a private bug bounty researcher with a strong interest in web application
+              security, practical testing, and continuous improvement through hands-on work.
+              My focus is on understanding how applications behave in practice, identifying
+              meaningful weaknesses, and producing reports that are clear enough to reproduce and fix.
+            </p>
+          </section>
+
+          <section class="section" id="focus">
+            <div class="section-heading">
+              <div class="section-label">Focus Areas</div>
+              <h2>What I look at closely</h2>
+            </div>
+
+            <div class="focus-grid">
+              <article class="focus-card">
+                <h3>Authentication</h3>
+                <p>Login, reset flows, session handling, identity checks, and account recovery paths.</p>
+              </article>
+
+              <article class="focus-card">
+                <h3>Access Control</h3>
+                <p>Permission boundaries, role checks, tenant separation, cross-account access, and IDOR-style flaws.</p>
+              </article>
+
+              <article class="focus-card">
+                <h3>Business Logic</h3>
+                <p>Application workflows, trust assumptions, hidden privilege paths, and practical impact analysis.</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="section-heading">
+              <div class="section-label">Approach</div>
+              <h2>How I work</h2>
+            </div>
+
+            <div class="work-grid">
+              <article class="work-card">
+                <h3>Manual-first testing</h3>
+                <p>I prefer direct application exploration and realistic exploitation paths over noisy checklist-only testing.</p>
+              </article>
+
+              <article class="work-card">
+                <h3>Practical findings</h3>
+                <p>I focus on issues that affect trust boundaries, authorization, workflow integrity, or sensitive data exposure.</p>
+              </article>
+
+              <article class="work-card">
+                <h3>Clear reporting</h3>
+                <p>Findings are documented with reproducible steps, concise impact, and straightforward remediation notes.</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="section" id="audits">
+            <div class="section-heading">
+              <div class="section-label">Security Audits</div>
+              <h2>Scoped web application reviews</h2>
+            </div>
+
+            <p class="audit-intro">
+              I am available for limited-scope web application security reviews with a focus on
+              authentication, access control, account workflows, and business logic issues.
+            </p>
+
+            <p class="audit-note">
+              Engagements are intentionally small, clearly scoped, and handled with a practical testing approach.
+            </p>
+
+            <div class="audit-grid">
+              <article class="audit-card">
+                <h3>What I can review</h3>
+                <p>
+                  Authentication flows, authorization logic, account management, invitation systems,
+                  file access, privilege boundaries, and other common web application attack surfaces.
+                </p>
+              </article>
+
+              <article class="audit-card">
+                <h3>Typical output</h3>
+                <p>
+                  A concise findings report with reproduction detail, impact explanation, and practical
+                  remediation guidance for each confirmed issue.
+                </p>
+              </article>
+
+              <article class="audit-card">
+                <h3>Typical scope</h3>
+                <p>
+                  Startup web apps, SaaS panels, admin flows, account systems, and targeted business logic reviews.
+                </p>
+              </article>
+            </div>
+
+            <div class="fit-grid">
+              <article class="fit-card">
+                <h3>Good fit</h3>
+                <p>Small-to-medium web applications, newly launched products, sensitive workflows, and teams needing focused review of real attack surfaces.</p>
+              </article>
+
+              <article class="fit-card">
+                <h3>Not my focus</h3>
+                <p>Large infrastructure assessments, broad enterprise audits, hardware work, or heavy reverse engineering engagements.</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="section" id="contributions">
+            <div class="section-heading">
+              <div class="section-label">Open Source Contributions</div>
+              <h2>Selected merged public work</h2>
+            </div>
+
+            <p class="about-copy">
+              I contribute practical improvements to open-source projects, with merged work spanning
+              accessibility, frontend performance, configuration, and code quality.
+            </p>
+
+            <div class="work-grid">
+              <article class="work-card">
+                <div class="contrib-meta">
+                  <span class="contrib-tag">Merged PR</span>
+                  <span class="contrib-tag">Code Quality</span>
+                </div>
+                <h3>Rapina</h3>
+                <p>
+                  Cleaned up singularize-related dead code warnings and aligned the change with the
+                  project’s feature-gated build requirements after review feedback.
+                </p>
+                <a
+                  class="card-link"
+                  href="https://github.com/rapina-rs/rapina/pull/422#event-24031993929"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View PR
+                </a>
+              </article>
+
+              <article class="work-card">
+                <div class="contrib-meta">
+                  <span class="contrib-tag">Merged PR</span>
+                  <span class="contrib-tag">Configuration</span>
+                </div>
+                <h3>AegisFlow</h3>
+                <p>
+                  Added configurable <code>max_body_size</code> support to server configuration and
+                  documented the setting for cleaner request size control.
+                </p>
+                <a
+                  class="card-link"
+                  href="https://github.com/saivedant169/AegisFlow/pull/38"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View PR
+                </a>
+              </article>
+
+              <article class="work-card">
+                <div class="contrib-meta">
+                  <span class="contrib-tag">Merged PR</span>
+                  <span class="contrib-tag">Performance</span>
+                </div>
+                <h3>SurfSense</h3>
+                <p>
+                  Improved markdown rendering performance by lazy-loading the syntax highlighter only
+                  when fenced code blocks are actually rendered.
+                </p>
+                <a
+                  class="card-link"
+                  href="https://github.com/MODSetter/SurfSense/pull/1023"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View PR
+                </a>
+              </article>
+
+              <article class="work-card">
+                <div class="contrib-meta">
+                  <span class="contrib-tag">Merged PR</span>
+                  <span class="contrib-tag">Accessibility</span>
+                </div>
+                <h3>SurfSense</h3>
+                <p>
+                  Improved accessibility by adding proper <code>aria-label</code> and
+                  <code>aria-pressed</code> support to the web search toggle for assistive technology.
+                </p>
+                <a
+                  class="card-link"
+                  href="https://github.com/MODSetter/SurfSense/pull/1026"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View PR
+                </a>
+              </article>
+
+              <article class="work-card">
+                <div class="contrib-meta">
+                  <span class="contrib-tag">GitHub</span>
+                  <span class="contrib-tag">Public Work</span>
+                </div>
+                <h3>Profile</h3>
+                <p>
+                  More public work, experiments, small utilities, and contributions are available on
+                  my GitHub profile.
+                </p>
+                <a
+                  class="card-link"
+                  href="https://github.com/Judel777"
+                  target="_blank"
+                  rel="me noopener noreferrer"
+                >
+                  Visit GitHub
+                </a>
+              </article>
+
+              <article class="work-card">
+                <div class="contrib-meta">
+                  <span class="contrib-tag">Approach</span>
+                  <span class="contrib-tag">Engineering</span>
+                </div>
+                <h3>Contribution Style</h3>
+                <p>
+                  I prefer small, reviewable changes that improve usability, maintainability,
+                  performance, and implementation quality in real codebases.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section class="section" id="contact">
+            <div class="section-heading">
+              <div class="section-label">Contact</div>
+              <h2>Get in touch</h2>
+            </div>
+
+            <div class="contact-box">
+              <p>
+                Available for private security work, scoped web application reviews, and security-related inquiries.
+              </p>
+
+              <div class="contact-actions">
+                <a class="btn btn-primary" href="mailto:contact@pal0x.dev?subject=Security%20Review%20Inquiry">Email for Security Review</a>
+                <a class="btn btn-secondary" href="https://github.com/Judel777" target="_blank" rel="me noopener noreferrer">Visit GitHub</a>
+              </div>
+
+              <p class="email">
+                <a href="mailto:contact@pal0x.dev">contact@pal0x.dev</a>
+              </p>
+            </div>
+          </section>
+
+          <p class="footer">pal0x · Web security research and scoped application reviews · © 2026</p>
+        </div>
+      </main>
+    </div>
   </div>
 </body>
 </html>
