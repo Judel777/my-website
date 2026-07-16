@@ -54,9 +54,12 @@
     @media (pointer:fine) { body,a,button { cursor:none; } }
     .header { position:sticky; top:0; z-index:50; border-bottom:1px solid rgba(79,166,203,.12); background:rgba(2,7,11,.78); backdrop-filter:blur(18px); }
     .nav-wrap { max-width:1440px; min-height:78px; margin:0 auto; padding:0 34px; display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:36px; }
-    .brand { display:inline-flex; align-items:center; gap:12px; text-decoration:none; font-weight:800; font-size:1.35rem; letter-spacing:-.04em; }
-    .brand-mark { width:32px; height:32px; display:grid; place-items:center; border:1px solid var(--line-strong); border-radius:50%; color:var(--cyan); font-family:var(--mono); font-size:.72rem; box-shadow:inset 0 0 20px rgba(57,191,243,.08),0 0 20px rgba(57,191,243,.08); }
-    .brand-badge { padding:5px 9px; border:1px solid var(--line); border-radius:999px; color:var(--cyan); font-family:var(--mono); font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; }
+    .brand { display:inline-flex; align-items:center; gap:13px; text-decoration:none; min-width:max-content; }
+    .brand-word { position:relative; display:inline-flex; align-items:baseline; font-size:1.48rem; font-weight:780; letter-spacing:-.065em; line-height:1; }
+    .brand-word::after { content:""; position:absolute; left:1px; right:0; bottom:-8px; height:1px; background:linear-gradient(90deg,var(--cyan),rgba(57,191,243,0)); opacity:.72; }
+    .brand-pal { color:#f7fafc; }
+    .brand-zero { margin-left:.035em; color:var(--cyan); font-family:var(--mono); font-size:.87em; font-weight:700; letter-spacing:-.08em; text-shadow:0 0 18px rgba(57,191,243,.18); }
+    .brand-descriptor { color:#657985; font-family:var(--mono); font-size:.57rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase; white-space:nowrap; }
     .nav { display:flex; justify-content:center; gap:30px; }
     .nav a { color:#758792; font-family:var(--mono); font-size:.76rem; letter-spacing:.08em; text-decoration:none; transition:color .2s ease; }
     .nav a:hover { color:var(--text); }
@@ -116,8 +119,8 @@
     footer { padding:30px 0 42px; border-top:1px solid rgba(79,166,203,.11); color:var(--muted-2); font-family:var(--mono); font-size:.68rem; letter-spacing:.08em; }
     .reveal { opacity:0; transform:translateY(18px); transition:opacity .7s ease,transform .7s ease; }
     .reveal.visible { opacity:1; transform:none; }
-    @media (max-width:960px) { .nav{display:none}.nav-wrap{grid-template-columns:1fr auto}.grid{grid-template-columns:1fr 1fr}.assessment{grid-template-columns:1fr} }
-    @media (max-width:680px) { .nav-wrap{padding:0 18px;min-height:68px}.brand-badge{display:none}.header .button{display:none}.shell{padding:0 18px}.hero{min-height:auto;padding:86px 0 74px}.hero::after{width:270px;height:270px;right:-150px}h1{font-size:clamp(2.75rem,16vw,4.2rem)}.hero-actions .button{width:100%}.section{padding:78px 0}.section-head{grid-template-columns:1fr;gap:18px}.grid,.research-grid{grid-template-columns:1fr}.security-report{grid-column:auto}.security-report::before{position:static;display:block;margin-bottom:12px}.panel{min-height:190px}.assessment-copy,.contact-panel{padding:24px} }
+    @media (max-width:960px) { .nav{display:none}.nav-wrap{grid-template-columns:1fr auto}.grid{grid-template-columns:1fr 1fr}.assessment{grid-template-columns:1fr}.brand-descriptor{display:none} }
+    @media (max-width:680px) { .nav-wrap{padding:0 18px;min-height:68px}.header .button{display:none}.shell{padding:0 18px}.hero{min-height:auto;padding:86px 0 74px}.hero::after{width:270px;height:270px;right:-150px}h1{font-size:clamp(2.75rem,16vw,4.2rem)}.hero-actions .button{width:100%}.section{padding:78px 0}.section-head{grid-template-columns:1fr;gap:18px}.grid,.research-grid{grid-template-columns:1fr}.security-report{grid-column:auto}.security-report::before{position:static;display:block;margin-bottom:12px}.panel{min-height:190px}.assessment-copy,.contact-panel{padding:24px} }
     @media (pointer:coarse),(prefers-reduced-motion:reduce) { .cursor-dot,.cursor-ring{display:none} body,a,button{cursor:auto} }
     @media (prefers-reduced-motion:reduce) { html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.panel,.button{transition:none} }
   </style>
@@ -130,7 +133,10 @@
 
   <header class="header">
     <div class="nav-wrap">
-      <a class="brand" href="#top" aria-label="pal0x home"><span class="brand-mark">0x</span><span>pal0x</span><span class="brand-badge">PH based</span></a>
+      <a class="brand" href="#top" aria-label="pal0x home">
+        <span class="brand-word"><span class="brand-pal">pal</span><span class="brand-zero">0x</span></span>
+        <span class="brand-descriptor">web security</span>
+      </a>
       <nav class="nav" aria-label="Primary navigation">
         <a href="#thesis">Profile</a>
         <a href="#focus">Core Areas</a>
