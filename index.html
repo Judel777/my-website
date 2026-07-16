@@ -67,6 +67,24 @@
     .button:hover { transform:translateY(-2px); border-color:var(--cyan); }
     .button-primary { border-color:#42bdec; background:linear-gradient(180deg,#49c8f7,#2baedf); color:#031019; box-shadow:0 14px 40px rgba(32,164,218,.18); }
     .button-primary:hover { box-shadow:0 18px 50px rgba(32,164,218,.28); }
+    .header-cta {
+      min-height:40px;
+      padding:0 15px;
+      gap:9px;
+      border-radius:999px;
+      border:1px solid rgba(57,191,243,.26);
+      background:rgba(57,191,243,.055);
+      color:#dff8ff;
+      box-shadow:none;
+      font-family:var(--mono);
+      font-size:.7rem;
+      font-weight:650;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+    .header-cta::before { content:""; width:6px; height:6px; border-radius:50%; background:var(--green); box-shadow:0 0 10px rgba(66,215,177,.6); }
+    .header-cta::after { content:"↗"; color:var(--cyan); font-size:.8rem; transform:translateY(-1px); }
+    .header-cta:hover { transform:translateY(-1px); border-color:rgba(57,191,243,.55); background:rgba(57,191,243,.09); box-shadow:0 8px 24px rgba(0,0,0,.22); }
     .shell { max-width:var(--max); margin:0 auto; padding:0 28px; }
     .hero { min-height:calc(100vh - 78px); display:grid; align-items:center; position:relative; padding:84px 0 70px; }
     .hero::after { content:""; position:absolute; width:460px; height:460px; right:-110px; top:13%; border-radius:50%; border:1px solid rgba(57,191,243,.08); box-shadow:0 0 0 70px rgba(57,191,243,.02),0 0 0 140px rgba(57,191,243,.014); pointer-events:none; }
@@ -145,7 +163,7 @@
         <a href="#assessment">Security Reviews</a>
         <a href="#contact">Get in Touch</a>
       </nav>
-      <a class="button button-primary" href="mailto:contact@pal0x.dev?subject=Controlled%20Security%20Assessment">Request Assessment</a>
+      <a class="button header-cta" href="mailto:contact@pal0x.dev?subject=Controlled%20Security%20Assessment">Discuss a Review</a>
     </div>
   </header>
 
