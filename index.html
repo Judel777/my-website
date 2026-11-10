@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="Judel Palaca (pal0x) — independent security researcher. Web security research, published advisories, and open-source contributions." name="description"/>
-<meta content="#f7f7f5" name="theme-color"/>
+<meta content="#17292f" name="theme-color"/>
 <meta content="website" property="og:type"/>
 <meta content="Judel Palaca (pal0x) — Security Researcher" property="og:title"/>
 <meta content="Web security research, published advisories, and open-source contributions." property="og:description"/>
@@ -13,14 +13,17 @@
 <meta content="summary" name="twitter:card"/>
 <link href="https://pal0x.dev/" rel="canonical"/>
 <title>Judel Palaca (pal0x) — Security Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
     :root {
       color-scheme: light;
-      --background: #f7f7f5;
-      --text: #262827;
-      --muted: #5f6363;
-      --line: #dedfdb;
-      --link: #245a73;
+      --background: #e5e9e5;
+      --text: #242b29;
+      --muted: #58635f;
+      --line: #cdd3ce;
+      --link: #28566c;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -28,7 +31,7 @@
       margin: 0;
       background: var(--background);
       color: var(--text);
-      font: 14px/1.55 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font: 15px/1.55 "IBM Plex Sans", sans-serif;
     }
     a { color: var(--link); text-underline-offset: 3px; }
     a:hover { text-decoration-thickness: 2px; }
@@ -45,15 +48,15 @@
       grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.6fr);
       align-content: center;
       align-items: start;
-      gap: clamp(30px, 5vw, 70px);
+      gap: clamp(36px, 5vw, 64px);
       padding-top: 14px;
       padding-bottom: 14px;
     }
     .eyebrow { color: var(--muted); font-size: 12px; margin: 0 0 10px; }
-    h1 { margin: 0; font-size: clamp(28px, 3.2vw, 37px); line-height: 1.2; letter-spacing: -0.045em; }
-    h2 { margin: 0 0 14px; font-size: 18px; line-height: 1.3; letter-spacing: -0.02em; }
+    h1 { margin: 0; font-size: clamp(32px, 3.5vw, 40px); line-height: 1.2; letter-spacing: -0.035em; font-weight: 600; }
+    h2 { margin: 0 0 14px; font-size: 19px; line-height: 1.3; letter-spacing: -0.02em; }
     .handle { color: var(--muted); margin: 6px 0 20px; font-size: 13px; }
-    .bio { font-size: 15px; line-height: 1.65; margin: 0 0 16px; }
+    .bio { font-size: 15.5px; line-height: 1.65; margin: 0 0 16px; }
     .focus { color: var(--muted); margin: 0 0 9px; font-size: 13px; }
     .tools { margin-bottom: 12px; }
     .opportunities { font-size: 13px; margin: 0 0 17px; line-height: 1.5; }
@@ -64,14 +67,31 @@
     .contact p { margin: 0; color: var(--muted); font-size: 13px; }
     .contact a { display: inline-block; margin-top: 5px; }
     .research h2 { margin-bottom: 9px; }
-    .work { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 22px; }
-    .work li { min-width: 0; padding: 9px 0 10px; border-top: 1px solid var(--line); }
-    .meta { font-size: 10.5px; color: var(--muted); margin: 0 0 1px; }
-    .work a { font-size: 13px; font-weight: 600; text-decoration: none; line-height: 1.3; display: inline-block; }
+    .work { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 30px; }
+    .work li { min-width: 0; padding: 11px 0 12px; border-top: 1px solid var(--line); }
+    .meta { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); margin: 0 0 1px; }
+    .work a { font-size: 14px; font-weight: 600; text-decoration: none; line-height: 1.3; display: inline-block; }
     .work a:hover { text-decoration: underline; }
-    .work-title { font-size: 13px; font-weight: 600; line-height: 1.3; display: inline-block; }
-    .description { margin: 2px 0 0; color: var(--muted); font-size: 11.5px; line-height: 1.4; }
-    .more { margin-top: 8px; font-size: 12px; }
+    .work-title { font-size: 14px; font-weight: 600; line-height: 1.3; display: inline-block; }
+    .description { margin: 3px 0 0; color: var(--muted); font-size: 12.5px; line-height: 1.4; }
+
+    .work .featured {
+      grid-column: 1 / -1;
+      border-left: 3px solid var(--link);
+      padding: 13px 0 15px 18px;
+      margin-bottom: 8px;
+    }
+    .work .featured a {
+      color: var(--text);
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .work .featured .description {
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .more { margin-top: 12px; font-size: 12.5px; }
     footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
     footer .wrap { min-height: 42px; display: flex; align-items: center; }
     @media (max-width: 950px) and (min-width: 761px) {
@@ -103,10 +123,280 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
     }
-  </style>
+
+    /* Editorial polish v3 */
+
+    body::before {
+      content: "";
+      display: block;
+      height: 3px;
+      background: var(--link);
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .055em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      background: var(--link);
+      flex: none;
+    }
+
+    .research h2 {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .research h2::after {
+      content: "";
+      height: 1px;
+      background: var(--line);
+      flex: 1;
+    }
+
+    .work .featured {
+      background: #dbe3e0;
+      padding: 17px 20px 19px;
+      margin-bottom: 12px;
+    }
+
+    .work .featured .meta {
+      color: var(--link);
+      font-weight: 500;
+    }
+
+    .profile-links a {
+      font-weight: 500;
+      text-decoration-thickness: 1px;
+    }
+
+    .more {
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+    }
+
+    @media (max-width: 760px) {
+      .research h2 {
+        gap: 12px;
+      }
+
+      .work .featured {
+        padding: 15px 16px;
+      }
+    }
+
+
+    /* Developer-inspired polish */
+
+    ::selection {
+      background: #b7cbc7;
+      color: #172725;
+    }
+
+    .eyebrow {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: .025em;
+    }
+
+    .research h2::before {
+      content: "//";
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--link);
+      letter-spacing: 0;
+    }
+
+    .work li:not(.featured) {
+      transition: border-color .18s ease;
+    }
+
+    .work li:not(.featured):hover {
+      border-top-color: var(--link);
+    }
+
+    .profile-links a[target="_blank"]::after {
+      content: " ↗";
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+    }
+
+    .work a {
+      text-underline-offset: 4px;
+    }
+
+    .work .featured {
+      transition: border-color .18s ease;
+    }
+
+    .work .featured:hover {
+      border-left-color: #163e51;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .work li, .work .featured {
+        transition: none;
+      }
+    }
+
+    /* Midnight Slate design */
+
+    h1 {
+      color: #f5f5f0;
+      font-weight: 600;
+    }
+
+    .handle {
+      color: #91cbd1;
+    }
+
+    .eyebrow::before {
+      background: #91cbd1;
+    }
+
+    .work .featured {
+      background: #243c42;
+      border-left-color: #91cbd1;
+    }
+
+    .work .featured .meta {
+      color: #9cd5d9;
+    }
+
+    .work .featured a {
+      color: #f1f5f2;
+    }
+
+    .work li:not(.featured):hover {
+      border-top-color: #91cbd1;
+    }
+
+    .work .featured:hover {
+      border-left-color: #c4ebea;
+    }
+
+    .contact,
+    .more {
+      border-color: var(--line);
+    }
+
+    .skip {
+      background: #243c42;
+      color: #edf1ed;
+    }
+
+    ::selection {
+      background: #44777b;
+      color: #ffffff;
+    }
+
+
+
+
+
+    /* Final dark palette and typography polish */
+
+    :root {
+      color-scheme: dark;
+      --background: #17292f;
+      --text: #edf1f0;
+      --muted: #b8c6c7;
+      --line: #344b52;
+      --link: #91c4cf;
+    }
+
+    body {
+      background: var(--background);
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      display: none;
+    }
+
+    .layout {
+      min-height: 0;
+      flex: 1;
+    }
+
+    footer {
+      flex-shrink: 0;
+    }
+
+    h1, h2 {
+      color: var(--text);
+    }
+
+    .eyebrow,
+    .meta {
+      color: #a4b9bd;
+    }
+
+    .handle {
+      color: var(--muted);
+    }
+
+    .bio {
+      color: #e4ebe9;
+    }
+
+    .description,
+    .focus,
+    .contact p,
+    footer {
+      color: var(--muted);
+    }
+
+    .work a,
+    .profile-links a,
+    .contact a,
+    .more a {
+      color: var(--link);
+    }
+
+    .work-title {
+      color: var(--text);
+    }
+
+    .work .featured {
+      background: #223940;
+      border-left-color: var(--link);
+    }
+
+    .work .featured a {
+      color: var(--text);
+    }
+
+    .work .featured .meta {
+      color: #b2c9cb;
+    }
+
+    main, footer {
+      position: relative;
+      z-index: 1;
+    }
+</style>
 </head>
 <body>
 <a class="skip" href="#content">Skip to content</a>
+
+
+
 <main class="wrap layout" id="content">
 <section aria-labelledby="name" class="about" id="about">
 <p class="eyebrow" id="top">Independent security researcher</p>
@@ -127,7 +417,7 @@
 <a href="mailto:contact@pal0x.dev">contact@pal0x.dev</a>
 </div>
 </section>
-<section aria-labelledby="research-heading" class="research" id="research"><h2 id="research-heading">Selected research and contributions</h2><ul class="work"><li><p class="meta">CVE-2026-88864 · Capgo</p><a href="https://github.com/Cap-go/capgo.app/security/advisories/GHSA-xg7v-83qv-qfff" rel="noopener noreferrer" target="_blank">SSO provider verification bypass</a><p class="description">Unverified provider records could affect SSO enforcement.</p></li><li><p class="meta">CVE-2026-88861 · Capgo</p><a href="https://github.com/Cap-go/capgo.app/security/advisories/GHSA-9435-5xw9-v29h" rel="noopener noreferrer" target="_blank">MFA enforcement bypass</a><p class="description">Password-only sessions retained privileged access despite enrolled MFA.</p></li><li><p class="meta">CVE-2026-100619 · Capgo</p><a href="https://github.com/Cap-go/capgo.app/security/advisories/GHSA-443r-w5p8-rhr2" rel="noopener noreferrer" target="_blank">OTA manifest poisoning</a><p class="description">A privileged worker accepted attacker-controlled manifest metadata.</p></li><li><p class="meta">CVE-2026-123800 · SuperTokens</p><a href="https://github.com/supertokens/supertokens-core/security/advisories/GHSA-4rf2-xqvf-8rcx#advisory-comment-365209" rel="noopener noreferrer" target="_blank">Cross-app API key takeover</a><p class="description">An app-scoped key could change shared credentials and affect sibling apps.</p></li><li><p class="meta">LinkAce · Disclosed and fixed</p><strong class="work-title">Private-link URL disclosure</strong><p class="description">Maintainer confirmed the fix; the advisory is not publicly accessible yet.</p></li><li><p class="meta">Rapina · Open-source pull request</p><a href="https://github.com/rapina-rs/rapina/pull/422" rel="noopener noreferrer" target="_blank">Rapina contribution · PR #422</a><p class="description">Public code contribution.</p></li><li><p class="meta">AegisFlow · Open-source pull request</p><a href="https://github.com/saivedant169/AegisFlow/pull/38" rel="noopener noreferrer" target="_blank">AegisFlow contribution · PR #38</a><p class="description">Public code contribution.</p></li><li><p class="meta">SurfSense · Open-source pull requests</p><a href="https://github.com/MODSetter/SurfSense/pull/1023" rel="noopener noreferrer" target="_blank">SurfSense contributions · PRs #1023, #1026</a><p class="description">Public code contributions.</p></li></ul><div class="more">
+<section aria-labelledby="research-heading" class="research" id="research"><h2 id="research-heading">Selected research and contributions</h2><ul class="work"><li class="featured"><p class="meta">CVE-2026-123800 · SuperTokens</p><a href="https://github.com/supertokens/supertokens-core/security/advisories/GHSA-4rf2-xqvf-8rcx#advisory-comment-365209" rel="noopener noreferrer" target="_blank">Cross-app API key takeover</a><p class="description">An app-scoped key could change shared credentials and affect sibling apps.</p></li><li><p class="meta">CVE-2026-88864 · Capgo</p><a href="https://github.com/Cap-go/capgo.app/security/advisories/GHSA-xg7v-83qv-qfff" rel="noopener noreferrer" target="_blank">SSO provider verification bypass</a><p class="description">Unverified provider records could affect SSO enforcement.</p></li><li><p class="meta">CVE-2026-88861 · Capgo</p><a href="https://github.com/Cap-go/capgo.app/security/advisories/GHSA-9435-5xw9-v29h" rel="noopener noreferrer" target="_blank">MFA enforcement bypass</a><p class="description">Password-only sessions retained privileged access despite enrolled MFA.</p></li><li><p class="meta">CVE-2026-100619 · Capgo</p><a href="https://github.com/Cap-go/capgo.app/security/advisories/GHSA-443r-w5p8-rhr2" rel="noopener noreferrer" target="_blank">OTA manifest poisoning</a><p class="description">A privileged worker accepted attacker-controlled manifest metadata.</p></li><li><p class="meta">LinkAce · Disclosed and fixed</p><strong class="work-title">Private-link URL disclosure</strong><p class="description">Maintainer confirmed the fix; the advisory is not publicly accessible yet.</p></li><li><p class="meta">Rapina · Open-source pull request</p><a href="https://github.com/rapina-rs/rapina/pull/422" rel="noopener noreferrer" target="_blank">Rapina contribution · PR #422</a><p class="description">Public code contribution.</p></li><li><p class="meta">AegisFlow · Open-source pull request</p><a href="https://github.com/saivedant169/AegisFlow/pull/38" rel="noopener noreferrer" target="_blank">AegisFlow contribution · PR #38</a><p class="description">Public code contribution.</p></li><li><p class="meta">SurfSense · Open-source pull requests</p><a href="https://github.com/MODSetter/SurfSense/pull/1023" rel="noopener noreferrer" target="_blank">SurfSense contributions · PRs #1023, #1026</a><p class="description">Public code contributions.</p></li></ul><div class="more">
 <strong class="work-title">Security research records</strong>
 <div><a href="https://dbu.gs/researchers/Judel777" rel="noopener noreferrer" target="_blank">87 Published CVEs — Researcher Profile</a></div>
 <div><a href="https://cve.radiocsirt.org/credits/Judel777" rel="noopener noreferrer" target="_blank">View CVE Records &amp; Research Credits</a></div>
