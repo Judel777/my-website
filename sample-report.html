@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Sample security assessment report by Judel Palaca (pal0x), based on a publicly disclosed and fixed vulnerability." name="description"/>
+<meta content="noindex" name="robots"/>
+<meta content="#17292f" name="theme-color"/>
+<title>Sample report · pal0x</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root { color-scheme: dark; --bg:#17292f; --panel:#223940; --text:#edf1f0; --muted:#b8c6c7; --line:#344b52; --link:#91c4cf; --crit:#e8a0a0; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:15px/1.6 "IBM Plex Sans",sans-serif; }
+  a { color:var(--link); text-underline-offset:3px; }
+  .wrap { width:min(calc(100% - 40px), 780px); margin:0 auto; padding:40px 0 56px; }
+  .back { font-size:13px; }
+  .note { margin:22px 0 30px; padding:12px 16px; border-left:3px solid var(--link); background:var(--panel); color:var(--muted); font-size:13px; }
+  .eyebrow { font-family:"IBM Plex Mono",monospace; font-size:11px; color:#a4b9bd; text-transform:uppercase; letter-spacing:.03em; margin:0 0 8px; }
+  h1 { margin:0 0 6px; font-size:28px; line-height:1.25; letter-spacing:-.03em; font-weight:600; }
+  h2 { margin:34px 0 10px; font-size:17px; padding-bottom:6px; border-bottom:1px solid var(--line); }
+  h3 { margin:22px 0 6px; font-size:15px; }
+  p, li { color:#e4ebe9; }
+  .muted { color:var(--muted); font-size:13px; }
+  table { width:100%; border-collapse:collapse; font-size:13.5px; margin:8px 0; }
+  th, td { text-align:left; padding:7px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { color:var(--muted); font-weight:500; width:34%; }
+  code, pre { font-family:"IBM Plex Mono",monospace; font-size:12.5px; }
+  code { background:var(--panel); padding:1px 5px; }
+  pre { background:var(--panel); padding:12px 14px; white-space:pre-wrap; color:var(--muted); }
+  .sev { display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:11.5px; padding:2px 8px; border:1px solid var(--crit); color:var(--crit); }
+  .ok { color:#9fd4a8; }
+  footer { margin-top:44px; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; }
+</style>
+</head>
+<body>
+<main class="wrap">
+<a class="back" href="./">← pal0x.dev</a>
+
+<div class="note">This is a sample showing the report format a client receives. It is based on a vulnerability I reported to SuperTokens that is already fixed and publicly disclosed as <a href="https://github.com/supertokens/supertokens-core/security/advisories/GHSA-4rf2-xqvf-8rcx" rel="noopener noreferrer" target="_blank">CVE-2026-123800</a>. Request and response evidence is left out here. A real report includes it in full.</div>
+
+<p class="eyebrow">Security assessment report · Sample</p>
+<h1>SuperTokens Core: multitenancy authorization review</h1>
+<p class="muted">Prepared by Judel Palaca (pal0x) · Status: fixed upstream · Published Nov 2026</p>
+
+<h2>1. Summary</h2>
+<p>The review covered the multitenancy management API of SuperTokens Core, self-hosted. The goal was to confirm that one application in a multi-app deployment cannot read or change another application's configuration, users, or keys.</p>
+<p>One critical issue was found. An attacker with a valid API key for any single application could update the shared parent domain configuration, replace sibling applications' API keys, and then act as users of those applications. The vendor fixed the issue across all supported release branches.</p>
+<table>
+<tr><th>Findings</th><td>1 critical</td></tr>
+<tr><th>Overall risk</th><td>High for licensed multi-app deployments that share one connection URI domain</td></tr>
+<tr><th>Remediation status</th><td class="ok">Fixed upstream (see section 5)</td></tr>
+</table>
+
+<h2>2. Scope and method</h2>
+<table>
+<tr><th>Target</th><td>SuperTokens Core (<code>supertokens-core</code>), self-hosted test deployment</td></tr>
+<tr><th>Focus</th><td>Tenant and application isolation in the multitenancy create/update API</td></tr>
+<tr><th>Approach</th><td>Source review of the permission checks, then manual testing against a local deployment with two sibling applications, each with its own API key</td></tr>
+<tr><th>Out of scope</th><td>Hosted SuperTokens infrastructure and any third-party deployments</td></tr>
+</table>
+
+<h2>3. Finding</h2>
+<h3>F-01 · Cross-application API key takeover via multitenancy update <span class="sev">CRITICAL · CVSS 3.1 9.9</span></h3>
+<table>
+<tr><th>Component</th><td><code>Multitenancy.checkPermissionsForCreateOrUpdate</code> in <code>src/main/java/io/supertokens/multitenancy/Multitenancy.java</code></td></tr>
+<tr><th>Weakness</th><td>CWE-639 Authorization bypass through user-controlled key · CWE-863 Incorrect authorization</td></tr>
+<tr><th>Preconditions</th><td>Licensed multi-tenant deployment with several apps under one non-default connection URI domain. Attacker holds the API key of any one of those apps.</td></tr>
+<tr><th>Vector</th><td><code>AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H</code></td></tr>
+</table>
+
+<p><strong>What is wrong.</strong> When a request targets the parent connection URI domain, the permission check confirms the domain but does not require the calling application and tenant to be the public (owner) ones. Any sibling app key therefore passes. A second path exists: if the optional identifier is omitted, the request targets the base tenant and skips both the permission branches and the enterprise feature gate.</p>
+
+<p><strong>How it is exploited.</strong></p>
+<ol>
+<li>Use app A's own key to send a v2 multitenancy update aimed at the shared parent domain.</li>
+<li>Replace the parent's API key. The <code>api_keys</code> field is not protected on this path.</li>
+<li>With the new parent key, replace app B's API key.</li>
+<li>Use app B's new key to read or change app B's users and create sessions as them.</li>
+</ol>
+<pre>[ Request and response evidence for each step was given to the vendor privately and is left out of this sample. ]</pre>
+
+<p><strong>Impact.</strong></p>
+<ul>
+<li>Full takeover of sibling applications that share the domain: user data read and write, and sessions as any user.</li>
+<li>Persistence through a sibling dashboard user, and lockout of the real owner from their own key.</li>
+<li>Base-tenant variant: the attacker can change first factors, required second factors, and which recipes are enabled. That weakens login integrity and can block sign-in. This variant cannot steal keys.</li>
+</ul>
+
+<h2>4. Recommendations</h2>
+<ol>
+<li>For any create or update that targets a connection URI domain or the base tenant, require the calling app and tenant to be the public ones.</li>
+<li>Treat a missing identifier as an error instead of silently targeting the base tenant. Apply the enterprise feature gate on every path.</li>
+<li>Refuse <code>api_keys</code> changes from any caller other than the owning scope.</li>
+<li>Add regression tests in which a sibling app key tries each of these operations and must fail.</li>
+</ol>
+
+<h2>5. Remediation and retest</h2>
+<p>The vendor shipped fixes on every supported branch, including 10.0.8, 10.1.9, 11.0.9, 11.1.4, 11.2.4, 11.3.8, 11.4.8, 12.0.11, 12.1.2, 12.2.1 and 12.3.1. Upgrade to the fixed release for your branch. In a client engagement, I retest every fixed finding and record the result here.</p>
+
+<footer>Judel Palaca (pal0x) · Independent security researcher · <a href="mailto:contact@pal0x.dev">contact@pal0x.dev</a></footer>
+</main>
+</body>
+</html>
